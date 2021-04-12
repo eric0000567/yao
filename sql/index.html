@@ -1,0 +1,99 @@
+<html>
+<head>
+<script>
+function showResult(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","function/"+str,true);
+        xmlhttp.send();
+    }
+}
+function mysql_insert() {
+
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint_insert").innerHTML = xmlhttp.responseText;
+            }
+        };
+		var str=document.getElementById("txt_insert").value;
+        xmlhttp.open("GET","function/insert.php?subject="+str,true);
+        xmlhttp.send();
+    
+}
+function mysql_update() {
+
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint_insert").innerHTML = xmlhttp.responseText;
+            }
+        };
+		var update=document.getElementById("txt_update").value;
+		var id=document.getElementById("txt_id").value;
+        xmlhttp.open("GET","function/update.php?update="+update+"&id="+id,true);
+        xmlhttp.send();
+    
+}
+function mysql_delete() {
+
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint_insert").innerHTML = xmlhttp.responseText;
+            }
+        };
+		var id=document.getElementById("txt_id").value;
+        xmlhttp.open("GET","function/delete.php?id="+id,true);
+        xmlhttp.send();
+    
+}
+</script>
+</head>
+<body>
+
+<form>
+<select name="result" onchange="showResult(this.value)">
+  <option value="">Select</option>
+  <option value="select_tbl.php">select tbl</option>
+  <option value="columns.php">Field</option>
+  <option value="where.php">where</option>
+  <option value="group.php">group by</option>
+  <option value="order.php">order by</option>
+  <option value="xls.html">xls download</option>
+  <option value="join.php">join</option>
+  <option value="insert.html">insert</option>
+  <option value="update.html">update</option>
+  <option value="delete.html">delete</option>
+  <option value="pivot.php">pivot</option>
+  </select>
+</form>
+<br>
+<div id="txtHint"><b>...</b></div>
+
+</body>
+</html>

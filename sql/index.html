@@ -1,5 +1,7 @@
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <script>
 function showResult(str) {
     if (str == "") {
@@ -19,6 +21,30 @@ function showResult(str) {
         xmlhttp.open("GET","function/"+str,true);
         xmlhttp.send();
     }
+}
+function getSelect(str) {
+
+    var item={id:"2",photo:"base64照片編碼",name:"團員姓名",email:"團員Email",institution:"機構",unit:"單位",job_title:"職稱",education:"教育",expertise:"專長",class:"1"
+     };
+    var jsonString = JSON.stringify(item);
+    $.ajax({
+        url:'function/about.php',
+        method: 'POST',
+        contentType: "application/json",
+        data:jsonString , 
+        success:function(response){
+            var res = $.parseJSON(response)
+            $.each(res, function(index, element) {
+                console.log(index);
+                console.log(element);
+
+            });
+            console.log('success');
+        },
+        error:function(xhr){
+            alert("發生錯誤: " + xhr.status + " " + xhr.statusText);
+        }
+    });
 }
 function mysql_insert() {
 
@@ -77,10 +103,10 @@ function mysql_delete() {
 <body>
 
 <form>
-<select name="result" onchange="showResult(this.value)">
+<select name="result" onchange="getSelect(this.value)">
   <option value="">Select</option>
-  <option value="select_tbl.php">select tbl</option>
-  <option value="columns.php">Field</option>
+  <option value="about">about</option>
+  <option value="connection">connection</option>
   <option value="where.php">where</option>
   <option value="group.php">group by</option>
   <option value="order.php">order by</option>
